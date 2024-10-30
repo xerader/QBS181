@@ -1,0 +1,23 @@
+﻿Column ID,Column Type,Data Description,Cleaned Data,,,
+male,Integer (binary),"Integer number notating male or female (1=male, 0=female)",Framingham1,,,
+Age,Integer,Integer number notating age,,,,
+education,Integer,Education level of 1 to 4,Cleaned Data ,,,
+currentSmoker,Integer (binary),"Current smoker status (1=current smoker, 0 = not a current smoker)",1. Added Columns,,,
+cigsPerDay,Numeric,Integer number notating amount of cigarettes per day,Column IDS,Column Type,Data Description,Process
+BPMeds,Integer (binary),"Integer number notating blood pressur medications (1=BPMeds, 2= no BPMeds)",Sex,Char,Character description of whether the individual is a male or female,IF statement from Male column. Converted 0's to Female and 1's to Female
+prevalentStroke,Integer (binary),"Prevalent stroke status (1=prevalent stroke, 0 = no  prevalent stroke",Max Heart Rate,Float,Calculation for individual's maximum heart rate,Formula: 208-0.7*HR - See references for formula identification
+prevalentHyp,Integer (binary),"Prevalent hyp status (1=prevalent hyp, 0 = not a prevalent hyp",Fasting Blood Sugar,Integer (binary),Indication of whether the patient's gluocse levels are above 120 (title determined from other data sets title),"IF statement from glucose column. 1 if glucose levels above 120, 0 if glucose levels below 120"
+diabetes,Integer (binary),"Integer number notating diabetes or  no diabetes (1=diabetes, 2= nodiabetes)",Data Set,Char,Indication of data set of origin,Written statement of data set (Framingham for this dataset)
+Cholesterol,Integer,Integer number notating cholesterol level,,,,
+sysBP,Float,Systolic blood pressure measurement,2. Remove Columns - Columns not needed for data combination,,,
+diaBP,Float,Diastolic blood presure measurement,Male,,,
+BMI,Float,Body mass index measurement,education,,,
+heartRate,Integer,Heart rate measurement,currentSmoker,,,
+Glucose,Integer,Glucose level measurement,cigsPerDay,,,
+Result,Integer (binary),"Integer number notating heart disease (1=heart disease, 2= no heart disease)",BPMeds,,,
+,,,prevalentStroke,,,
+,,,prevalentHyp,,,
+,,,diabetes,,,
+,,,diaBP,,,
+,,,BMI,,,
+,,,glucose,,,
