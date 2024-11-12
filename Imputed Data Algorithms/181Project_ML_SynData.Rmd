@@ -1,0 +1,122 @@
+---
+title: "181_Project_ML_SynData"
+author: "Rob Ross-Shannon"
+date: "2024-11-10"
+output: pdf_document
+---
+
+```{r}
+merged <- read.csv("C:/Users/Rob Ross-Shannon/Documents/QBS 181/project/QBS181/Merged_data.csv")
+
+#Removing unrecongized NAs (values of 0) and removing outliers
+merged1<-merged %>%   filter(is.na(Cholesterol) | (Cholesterol > 0 & Cholesterol < 650))
+merged1
+
+#stored merged1 result column into a vector
+result <- merged1$Result
+
+#Keeping only factors of interest
+merged1 <- merged1[1:6]
+
+#Original data without any NAs
+original1 <- merged1 %>% filter(!is.na(Cholesterol))
+
+summary(original1$Cholesterol)
+summary(merged1$Cholesterol)
+
+```
+
+```{r}
+#Checking number of NA cholesterol values
+sapply(merged1, function(x) sum(is.na(x)))
+```
+
+```{r}
+#Ensuring correct data types
+library(dplyr) 
+merged1 <- merged1 %>%
+    mutate(
+        Sex = as.factor(Sex),
+        Max.Heart.Rate = as.numeric(Max.Heart.Rate),
+        Age = as.numeric(Age), 
+        Fasting.Blood.Sugar = as.factor(Fasting.Blood.Sugar), 
+        Systolic.BP = as.numeric(Systolic.BP),
+        Cholesterol = as.numeric(Cholesterol),
+    )
+
+str(merged1)
+```
+```{r}
+#Implementing MICE method
+library(mice)
+init = mice(merged1, maxit=0) 
+meth = init$method
+predM = init$predictorMatrix
+```
+
+```{r}
+library(car)
+#Checking cholesterol distribution to see what prediction method I should use
+par(mfrow=c(1,2))
+hist(original1$Cholesterol)
+qqPlot(original1$Cholesterol)
+```
+```{r}
+meth[c("Cholesterol")]="pmm" 
+set.seed(103)
+imputed = mice(merged1, method=meth, predictorMatrix=predM, m=8)
+```
+```{r}
+#Creating dataset of imputed values
+imputed <- complete(imputed)
+sapply(imputed, function(x) sum(is.na(x)))
+```
+```{r}
+# Comparing cholesterol levels at positions where NAs were introduced
+predicted <- imputed$Cholesterol[is.na(merged1$Cholesterol)]
+
+#Comparing distributions of predicted values and original non-na cholesterol levels
+summary(original1$Cholesterol)
+summary(predicted)
+
+
+par(mfrow=c(1,2))
+hist(original1$Cholesterol)
+hist(predicted)
+par(mfrow=c(1,2))
+boxplot(original1$Cholesterol)
+boxplot(predicted)
+
+t.test(original1$Cholesterol, predicted)
+```
+
+```{r}
+#Replacing NA values in merged1 with synthetic data
+merged1$Cholesterol[is.na(merged1$Cholesterol)] <- predicted
+
+
+#Checking to see if NAs were replaced
+sum(is.na(merged1$Cholesterol))
+
+#Checking distribution of non-NA cholesterol levels and new dataframe with replaced NA levles
+summary(original1$Cholesterol)
+summary(merged1$Cholesterol)
+
+
+par(mfrow=c(1,2))
+hist(original1$Cholesterol)
+hist(merged1$Cholesterol)
+par(mfrow=c(1,2))
+boxplot(original1$Cholesterol)
+boxplot(merged1$Cholesterol)
+
+t.test(original1$Cholesterol, merged1$Cholesterol)
+```
+```{r}
+#Adding result column back to merged1
+merged1 <- cbind(merged1, result)
+merged1
+#Creating new CSV with Synthetic data
+write.csv(merged1, "MICE_SyntheticData1.csv")
+```
+
