@@ -1,0 +1,12 @@
+﻿Column ID,Column Type,Description
+Age,Numeric,Age of Patient
+Gender,Nominal,Gender of the patient
+Sex,Binary,"1 for Male , 0 for female"
+Cholesterol,NA,Missing value
+Heart rate,Numeric,Heart rate of the patient: 20 - 1111
+Max Heart Rate,Numeric ,Calculated by 211 * Age * 0.64
+Systolic BP,Numeric,Systolic Blood Pressure: 42 - 223 (in mm HG)
+Blood Sugar,Numeric,Blood Sugar: 35 - 541 mg/dl
+Fasting Blood Sugar,Binary,"Indicator of whether glucose level > 120 mg/dl (0 = false, 1 = true) "
+Result,Binary,"Negative if no heart disease, positive if heart disease present"
+ Result 2 ,Binary,"0 = Negative, 1 = Positive"
