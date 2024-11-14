@@ -14,7 +14,7 @@ Heart disease cost about $252.2 billion from 2019 to 2020. This includes the cos
 From 2009-2019, around 6% prevalence in the total population with men more likely to have disease compared to woman
 Prevalence of heart disease increases as you age
 
-![Geography](/Users/kevinyang/Documents/QBS181/Cleaned Data/Image/geo.png)
+![Geography](/Image/geo.png)
 
 ### Cleaned Data
 Contains cleaned datasets from various sources including Framingham, Kaggle, Mendeley, and UCI.
