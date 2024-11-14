@@ -9,6 +9,12 @@ Repository for the final QBS181 project. This project involves data cleaning, im
 - Rob
 
 ## Description
+Heart disease is the leading cause of death for men, women, and people of most racial and ethnic groups, accounting for approximately 1 in every 5 deaths in 2022 in the United States (, 702,880 people died from heart disease)
+Heart disease cost about $252.2 billion from 2019 to 2020.2This includes the cost of healthcare services, medicines, and lost productivity due to death.
+From 2009-2019, around 6% prevalence in the total population with men more likely to have disease compared to woman
+Prevalence of heart disease increases as you age
+
+![Geography](Image/geo.png)
 
 ### Cleaned Data
 Contains cleaned datasets from various sources including Framingham, Kaggle, Mendeley, and UCI.
