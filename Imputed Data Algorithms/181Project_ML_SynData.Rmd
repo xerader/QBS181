@@ -6,7 +6,8 @@ output: pdf_document
 ---
 
 ```{r}
-merged <- read.csv("C:/Users/Rob Ross-Shannon/Documents/QBS 181/project/QBS181/Merged_data.csv")
+#Reading in merged dataframe
+merged <- read.csv("C:/Users/Rob Ross-Shannon/Documents/QBS 181/project/QBS181/Cleaned Data/Merged_data.csv")
 
 #Removing unrecongized NAs (values of 0) and removing outliers
 merged1<-merged %>%   filter(is.na(Cholesterol) | (Cholesterol > 0 & Cholesterol < 650))
@@ -62,8 +63,11 @@ hist(original1$Cholesterol)
 qqPlot(original1$Cholesterol)
 ```
 ```{r}
+#Establishing method of distribution imputation
 meth[c("Cholesterol")]="pmm" 
 set.seed(103)
+
+#Imputing data
 imputed = mice(merged1, method=meth, predictorMatrix=predM, m=8)
 ```
 ```{r}
@@ -86,8 +90,6 @@ hist(predicted)
 par(mfrow=c(1,2))
 boxplot(original1$Cholesterol)
 boxplot(predicted)
-
-t.test(original1$Cholesterol, predicted)
 ```
 
 ```{r}
@@ -104,14 +106,41 @@ summary(merged1$Cholesterol)
 
 
 par(mfrow=c(1,2))
-hist(original1$Cholesterol)
-hist(merged1$Cholesterol)
-par(mfrow=c(1,2))
-boxplot(original1$Cholesterol)
-boxplot(merged1$Cholesterol)
+#Creating histograms and boxplots to compare distributions of original and synthetic data with data labels
+hist(original1$Cholesterol, xlab = "Cholesterol", main = "Original Data")
+hist(merged1$Cholesterol, xlab = "Cholesterol", main = "Synthetic Data")
 
-t.test(original1$Cholesterol, merged1$Cholesterol)
 ```
+
+```{r}
+library(ggpubr)
+cont_cols <- c("#bb0a21","#087e8b")
+
+#Combine dataframes for ggplot
+original1$Group <- "Original"
+merged1$Group <- "Synthetic"
+combined_data <- rbind(original1, merged1)
+
+#Creating boxplot
+p1 <- ggboxplot(combined_data, x = "Group", y = "Cholesterol",
+                color = "Group", palette = cont_cols, 
+                xlab=F,ylab="Cholesterol (mg/dl)")
+
+# Run the Kruskal-Wallis test separately to get the p-value
+kruskal_test <- kruskal.test(Cholesterol ~ Group, data = combined_data)
+p_value <- round(kruskal_test$p.value, 3)  # Round to 3 decimal places
+
+# Add the boxplot and the custom annotation
+p1 <- p1 + 
+  annotate("text", x = 1.5, y = 600, 
+           label = paste("Kruskal-Wallis P-Value =", p_value),
+           size = 3, color = "black") +
+  theme(legend.position = "top", legend.justification = "center")
+    
+p1
+
+```
+
 ```{r}
 #Adding result column back to merged1
 merged1 <- cbind(merged1, result)
