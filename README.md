@@ -42,11 +42,37 @@ Contains scripts for predicting heart disease:
 
 ## Usage
 
-### Data Cleaning
-To clean the data, run the notebooks in the `Data Cleaning Scripts` directory.
+### 1. Obtain Raw data sets. 
+These can found from the links below: 
+heart_disease - https://archive.ics.uci.edu/dataset/45/heart+disease
+heart - https://www.kaggle.com/datasets/fedesoriano/heart-failure-prediction
+Medicaldataset - https://data.mendeley.com/datasets/wmhctcrt5v/1
+Cardiovascular_Disease_Dataset - https://data.mendeley.com/datasets/dzz48mvjht/1
+framingham - https://www.kaggle.com/datasets/aasheesh200/framingham-heart-study-dataset 
 
-### Data Imputation
+### 2. Data Cleaning. 
+Follow the guidelines in `Data Cleaning Scripts` and the UCI_DD in Data Dictionary for cleaning the UCI/heart_disease dataset. 
+
+For the other data sets follow the data dictionaries associated with the dataset (read in csv format)
+
+heart - Kaggle_DD
+Medicaldataset - Mendeley_dataset
+heart_disease - UCI_DD
+Cardiovascular_Disease_Dataset - Mendeley1_DD
+framingham - Framingham_DD
+
+At this point you should have 5 separately cleaned data sets
+
+### 3. Data Merging
+ In the `Data Cleaning Cleaning Scripts` run the MergingDF python file. The outputted file should include a full dataframe with all combined data sets. 
+
+### 4. Data Imputation
 To impute missing data, run the scripts in the `Imputed Data Algorithms` directory.
+The `181Project_ML_SynData.Rmd` will impute the data using the MICE method (ran in R)
+The `synthesis_data.ipynb` will impute data using Python's Faker method
+The 
 
 ### Prediction
 To run predictions, use the `Prediction.ipynb` notebook in the `Prediction Scripts` directory.
+This script will utilize the imputed data method of choice (read in an as a csv) to predict the 'Result' column and provide a corresponding accuracy and F1 measurement. 
+
