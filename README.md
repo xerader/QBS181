@@ -35,10 +35,12 @@ Contains data dictionaries for the datasets used:
 Scripts for data imputation:
 - `181Project_ML_SynData.Rmd`: R Markdown file for data imputation using MICE method.
 - `synthesis_data.ipynb`: Jupyter notebook for synthesizing data.
+- `Pipeline_Data_ML.ipynb`: Jupyter notebook for synthesizing data with ML method.
 
 ### Prediction Scripts
 Contains scripts for predicting heart disease:
 - `Prediction.ipynb`: Jupyter notebook for running prediction models.
+- `Prediction_with_umap.ipynb`: Jupyter notebook for plot the prediction with UMAPx.
 
 ## Usage
 
