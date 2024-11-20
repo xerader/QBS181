@@ -72,7 +72,7 @@ The `181Project_ML_SynData.Rmd` will impute the data using the MICE method (ran 
 The `synthesis_data.ipynb` will impute data using Python's Faker method
 The 
 
-### Prediction
+### 5. Prediction
 To run predictions, use the `Prediction.ipynb` notebook in the `Prediction Scripts` directory.
 This script will utilize the imputed data method of choice (read in an as a csv) to predict the 'Result' column and provide a corresponding accuracy and F1 measurement. 
 
