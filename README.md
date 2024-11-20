@@ -72,7 +72,7 @@ At this point you should have 5 separately cleaned data sets
 To impute missing data, run the scripts in the `Imputed Data Algorithms` directory.
 The `181Project_ML_SynData.Rmd` will impute the data using the MICE method (ran in R)
 The `synthesis_data.ipynb` will impute data using Python's Faker method
-The 
+The `Pipeline_Data_ML.ipynb` will impute data using a novel machine learning approach. 
 
 ### 5. Prediction
 To run predictions, use the `Prediction.ipynb` notebook in the `Prediction Scripts` directory.
